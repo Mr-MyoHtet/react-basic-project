@@ -3,6 +3,7 @@ import "./App.css";
 
 function App() {
   return (
+<<<<<<< HEAD
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -18,6 +19,11 @@ function App() {
           Learn React
         </a>
       </header>
+=======
+    <div>
+      <h1>Hello world</h1>
+      <p>This project is based on react stage!!!!</p>
+>>>>>>> steps
     </div>
   );
 }
