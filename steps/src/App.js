@@ -1,14 +1,16 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { useState } from "react";
 
 const messages = ["Learn React", "Apply Job", "Get Income"];
 function App() {
-  const step = 1;
+  const [step, setState] = useState(1);
+
   function handlePrevious() {
-    alert("Previous");
+    if (step > 1) setState(step - 1);
   }
   function handleNext() {
-    alert("Next");
+    if (step < 3) setState(step + 1);
   }
   return (
     <div className="steps">
