@@ -75,7 +75,7 @@ h3 {
   text-transform: uppercase;
 }
 
-.close {
+/* .close {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -84,8 +84,14 @@ h3 {
   cursor: pointer;
   font-size: 40px;
   color: inherit;
-}
+} */
 
 .close:hover {
   color: #7950f2;
+}
+.open {
+  background-color: green;
+}
+.close {
+  background-color: red;
 }

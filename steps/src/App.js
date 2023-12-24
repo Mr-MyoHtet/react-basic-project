@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 
@@ -6,21 +5,34 @@ const messages = ["Learn React", "Apply Job", "Get Income"];
 function App() {
   const [step, setState] = useState(1);
   const [isOpen, setisOpen] = useState(true);
+  console.log(setisOpen);
 
   function handlePrevious() {
-    if (step > 1) setState(step - 1);
+    if (step > 1) {
+      setState((step) => step - 1);
+    }
   }
   function handleNext() {
-    if (step < 3) setState(step + 1);
+    if (step < 3) {
+      setState((step) => step + 1);
+      setState((step) => step + 1);
+    }
   }
   function openCLose() {
     setisOpen(!isOpen);
   }
   return (
     <div>
-      <button className="close" onClick={openCLose}>
-        &times;
-      </button>
+      {
+        <button className={`${isOpen ? "open" : "close"}`} onClick={openCLose}>
+          menu
+        </button>
+      }
+      {/* {isOpen ? (
+        <button onClick={openCLose}>Open</button>
+      ) : (
+        <button onClick={openCLose}>Close</button>
+      )} */}
       {isOpen && (
         <div className="steps">
           <div className="numbers">
