@@ -15,7 +15,6 @@ function App() {
   function handleNext() {
     if (step < 3) {
       setState((step) => step + 1);
-      setState((step) => step + 1);
     }
   }
   function openCLose() {
