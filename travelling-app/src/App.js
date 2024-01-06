@@ -9,17 +9,24 @@ function App() {
 
   //handleAddItems is function and setNewItems into newItems array
   function handleAddItem(items) {
+    console.log("Helo");
+    console.log(items);
+    console.log("world");
     //push new item with destructre react is alaways inmuttted
     setNewItems((newItems) => [...newItems, items]);
   }
 
+  //delete item
+  function handleDeleteItem(id) {
+    setNewItems((newItems) => newItems.filter((item) => item.id != id));
+  }
   return (
     <div className="app">
       <Logo />
       {/* addItems is props name and handleAddItems is the function */}
       <Form addItem={handleAddItem} />
       {/* //items is props name //newItems is array object */}
-      <PackingList items={newItems} />
+      <PackingList items={newItems} handleDelete={handleDeleteItem} />
       <Stats />
     </div>
   );
@@ -68,24 +75,25 @@ function Form({ addItem }) {
   );
 }
 // <PackingList items={newItems} /> get items variable with destructure
-function PackingList({ items }) {
+function PackingList({ items, handleDelete }) {
   console.log(items);
   return (
     <div className="list">
       <ul>
         {items.map((items) => (
-          <Items itemsObj={items} key={items.id} />
+          <Items itemsObj={items} key={items.id} handel={handleDelete} />
         ))}
       </ul>
     </div>
   );
 }
-function Items({ itemsObj }) {
+function Items({ itemsObj, handel }) {
   return (
     <li>
       <span style={itemsObj.packed ? { textDecoration: "line-through" } : {}}>
         {itemsObj.quantity} {itemsObj.description}
       </span>
+      <button onClick={() => handel(itemsObj.id)}>❌</button>
     </li>
   );
 }
