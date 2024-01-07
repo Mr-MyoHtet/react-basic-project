@@ -18,15 +18,32 @@ function App() {
 
   //delete item
   function handleDeleteItem(id) {
-    setNewItems((newItems) => newItems.filter((item) => item.id != id));
+    let x = setNewItems((newItems) => newItems.filter((item) => item.id != id));
+    console.log("khant");
+    console.log(x);
+    console.log("phyo");
   }
+
+  //checkbox toogle
+  function handleCheckboxToogle(id) {
+    setNewItems((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
+    );
+  }
+
   return (
     <div className="app">
       <Logo />
       {/* addItems is props name and handleAddItems is the function */}
       <Form addItem={handleAddItem} />
       {/* //items is props name //newItems is array object */}
-      <PackingList items={newItems} handleDelete={handleDeleteItem} />
+      <PackingList
+        items={newItems}
+        handleDelete={handleDeleteItem}
+        handleCheckToogle={handleCheckboxToogle}
+      />
       <Stats />
     </div>
   );
@@ -75,21 +92,27 @@ function Form({ addItem }) {
   );
 }
 // <PackingList items={newItems} /> get items variable with destructure
-function PackingList({ items, handleDelete }) {
+function PackingList({ items, handleDelete, handleCheckToogle }) {
   console.log(items);
   return (
     <div className="list">
       <ul>
         {items.map((items) => (
-          <Items itemsObj={items} key={items.id} handel={handleDelete} />
+          <Items
+            itemsObj={items}
+            key={items.id}
+            handel={handleDelete}
+            checkToogle={handleCheckToogle}
+          />
         ))}
       </ul>
     </div>
   );
 }
-function Items({ itemsObj, handel }) {
+function Items({ itemsObj, handel, checkToogle }) {
   return (
     <li>
+      <input type="checkbox" onChange={() => checkToogle(itemsObj.id)}></input>
       <span style={itemsObj.packed ? { textDecoration: "line-through" } : {}}>
         {itemsObj.quantity} {itemsObj.description}
       </span>
