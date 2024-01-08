@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Logo from "./Logo";
 
 // const initialItems = [
 //   { id: 1, description: "Passports", quantity: 2, packed: true },
@@ -51,10 +52,6 @@ function App() {
     </div>
   );
 }
-function Logo() {
-  return <h1>💖 Far Way Travelling 🧳</h1>;
-}
-
 function Form({ addItem }) {
   const [description, setDescription] = useState("");
   const [quantity, setquantity] = useState(1);
@@ -94,7 +91,18 @@ function Form({ addItem }) {
     </form>
   );
 }
-// <PackingList items={newItems} /> get items variable with destructure
+function Items({ itemsObj, handel, checkToogle }) {
+  return (
+    <li>
+      <input type="checkbox" onChange={() => checkToogle(itemsObj.id)}></input>
+      <span style={itemsObj.packed ? { textDecoration: "line-through" } : {}}>
+        {itemsObj.quantity} {itemsObj.description}
+      </span>
+      <button onClick={() => handel(itemsObj.id)}>❌</button>
+    </li>
+  );
+}
+
 function PackingList({ items, handleDelete, handleCheckToogle, clearList }) {
   console.log(items);
 
@@ -133,17 +141,7 @@ function PackingList({ items, handleDelete, handleCheckToogle, clearList }) {
     </div>
   );
 }
-function Items({ itemsObj, handel, checkToogle }) {
-  return (
-    <li>
-      <input type="checkbox" onChange={() => checkToogle(itemsObj.id)}></input>
-      <span style={itemsObj.packed ? { textDecoration: "line-through" } : {}}>
-        {itemsObj.quantity} {itemsObj.description}
-      </span>
-      <button onClick={() => handel(itemsObj.id)}>❌</button>
-    </li>
-  );
-}
+
 function Stats({ items }) {
   if (!items.length) {
     return (
