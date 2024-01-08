@@ -145,6 +145,13 @@ function Items({ itemsObj, handel, checkToogle }) {
   );
 }
 function Stats({ items }) {
+  if (!items.length) {
+    return (
+      <div className="stats">
+        <p>Add some items to go to the trip</p>
+      </div>
+    );
+  }
   const numItems = items.length;
   const packed = items.filter((item) => item.packed).length;
   const packedPer = Math.round((packed / numItems) * 100);
