@@ -91,10 +91,23 @@ function Form({ addItem }) {
 // <PackingList items={newItems} /> get items variable with destructure
 function PackingList({ items, handleDelete, handleCheckToogle }) {
   console.log(items);
+
+  //sorted  items
+  let [sorted, setSorted] = useState("input");
+  let sortedItem;
+  if (sorted == "input") sortedItem = items;
+  if (sorted == "description")
+    sortedItem = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
+  if (sorted == "packed")
+    sortedItem = items
+      .slice()
+      .sort((a, b) => Number(a.packed) - Number(b.packed));
   return (
     <div className="list">
       <ul>
-        {items.map((items) => (
+        {sortedItem.map((items) => (
           <Items
             itemsObj={items}
             key={items.id}
@@ -103,6 +116,13 @@ function PackingList({ items, handleDelete, handleCheckToogle }) {
           />
         ))}
       </ul>
+      <div className="actions">
+        <select value={sorted} onChange={(e) => setSorted(e.target.value)}>
+          <option value="input">Sorted by Input Value</option>
+          <option value="description">Sorted by Description</option>
+          <option value="packed">Sorted by Packed</option>
+        </select>
+      </div>
     </div>
   );
 }
