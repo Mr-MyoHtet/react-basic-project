@@ -7,21 +7,18 @@ import { useState } from "react";
 function App() {
   const [newItems, setNewItems] = useState([]);
 
+  //const numItems = newItems.length;
+
   //handleAddItems is function and setNewItems into newItems array
   function handleAddItem(items) {
-    console.log("Helo");
     console.log(items);
-    console.log("world");
     //push new item with destructre react is alaways inmuttted
     setNewItems((newItems) => [...newItems, items]);
   }
 
   //delete item
   function handleDeleteItem(id) {
-    let x = setNewItems((newItems) => newItems.filter((item) => item.id != id));
-    console.log("khant");
-    console.log(x);
-    console.log("phyo");
+    setNewItems((newItems) => newItems.filter((item) => item.id != id));
   }
 
   //checkbox toogle
@@ -44,7 +41,7 @@ function App() {
         handleDelete={handleDeleteItem}
         handleCheckToogle={handleCheckboxToogle}
       />
-      <Stats />
+      <Stats items={newItems} />
     </div>
   );
 }
@@ -120,10 +117,19 @@ function Items({ itemsObj, handel, checkToogle }) {
     </li>
   );
 }
-function Stats() {
+function Stats({ items }) {
+  const numItems = items.length;
+  const packed = items.filter((item) => item.packed).length;
+  const packedPer = Math.round((packed / numItems) * 100);
   return (
     <footer className="stats">
-      <em>You have X items on your list, and you already packed X (X%)</em>
+      <em>
+        {packedPer === 100
+          ? `You have alerdy to go trrip✈️`
+          : `You have ${numItems} items on your list, and you already packed ${packed}
+        and
+        ${packedPer}%`}
+      </em>
     </footer>
   );
 }
