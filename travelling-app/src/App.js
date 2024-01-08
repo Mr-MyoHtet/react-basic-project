@@ -29,6 +29,11 @@ function App() {
       )
     );
   }
+  //clear item
+  function clearList() {
+    const confirm = window.confirm("Are you sure to delete this item?");
+    if (confirm) setNewItems([]);
+  }
 
   return (
     <div className="app">
@@ -40,6 +45,7 @@ function App() {
         items={newItems}
         handleDelete={handleDeleteItem}
         handleCheckToogle={handleCheckboxToogle}
+        clearList={clearList}
       />
       <Stats items={newItems} />
     </div>
@@ -89,7 +95,7 @@ function Form({ addItem }) {
   );
 }
 // <PackingList items={newItems} /> get items variable with destructure
-function PackingList({ items, handleDelete, handleCheckToogle }) {
+function PackingList({ items, handleDelete, handleCheckToogle, clearList }) {
   console.log(items);
 
   //sorted  items
@@ -122,6 +128,7 @@ function PackingList({ items, handleDelete, handleCheckToogle }) {
           <option value="description">Sorted by Description</option>
           <option value="packed">Sorted by Packed</option>
         </select>
+        <button onClick={() => clearList()}>Clear List</button>
       </div>
     </div>
   );
