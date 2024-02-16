@@ -27,11 +27,6 @@ function App() {
           menu
         </button>
       }
-      {/* {isOpen ? (
-        <button onClick={openCLose}>Open</button>
-      ) : (
-        <button onClick={openCLose}>Close</button>
-      )} */}
       {isOpen && (
         <div className="steps">
           <div className="numbers">
@@ -39,33 +34,57 @@ function App() {
             <div className={`${step >= 2 ? "active" : ""}`}>2</div>
             <div className={`${step >= 3 ? "active" : ""}`}>3</div>
           </div>
-          <p className="message">
-            Step{step} : {messages[step - 1]}
-          </p>
+
+          <Message step={step}>{messages[step - 1]}</Message>
+
           <div className="buttons">
-            <button
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
+            {/* comment start
+               handlePrevious is passing function value ,it not function call 
+               comment end
+             */}
+            <Buttons
+              bgColor="#7950f2"
+              textColor="#fff"
               onClick={handlePrevious}
             >
-              {/* comment start
-      handlePrevious is passing function value ,it not function call 
-      comment end
-    */}
-              Previous
-            </button>
-            <button
-              style={{ backgroundColor: "#7950f2", color: "#fff" }}
-              onClick={handleNext}
-            >
-              {/* comment start
-    handleNext is passing function value ,it not function call 
-    comment end
-  */}
-              Next
-            </button>
+              <span>
+                <em>👈</em>Previous
+              </span>
+            </Buttons>
+            {/* comment start
+            handleNext is passing function value ,it not function call 
+            comment end
+            */}
+            <Buttons bgColor="#7950f2" textColor="#fff" onClick={handleNext}>
+              <span>
+                Next<em>👉</em>
+              </span>
+            </Buttons>
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function Buttons({ bgColor, textColor, onClick, children }) {
+  return (
+    <div>
+      <button
+        style={{ backgroundColor: bgColor, color: textColor }}
+        onClick={onClick}
+      >
+        {children}
+      </button>
+    </div>
+  );
+}
+
+function Message({ step, children }) {
+  return (
+    <div className="message">
+      <p>{`Step ${step}`}</p>
+      {messages[step - 1]}
     </div>
   );
 }
