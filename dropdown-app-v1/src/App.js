@@ -25,19 +25,27 @@ export default function App() {
 }
 
 function Accordion() {
+  const [currentOpen, setCurrentOpen] = useState(null);
   return (
     <div>
       {faqs.map((faq, i) => (
-        <Items item={faq} num={i}></Items>
+        <Items
+          item={faq}
+          num={i}
+          currentOpen={currentOpen}
+          onOpen={setCurrentOpen}
+        ></Items>
       ))}
     </div>
   );
 }
 
-function Items({ item, num }) {
-  const [isOpen, setisOpen] = useState(false);
+function Items({ item, num, currentOpen, onOpen }) {
+  //const [isOpen, setisOpen] = useState(false);
+  const isOpen = num === currentOpen;
   function openToogle() {
-    setisOpen((isOpen) => !isOpen);
+    //setisOpen((isOpen) => !isOpen);
+    onOpen(isOpen ? null : num);
   }
   return (
     <div className="accordion" onClick={openToogle}>
